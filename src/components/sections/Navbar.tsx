@@ -54,7 +54,7 @@ export default function Navbar() {
           }}
         >Download CV</a> */}
         <a 
-          href="Aditya_Chouksey_CV.pdf" 
+          href="/Aditya_Chouksey_CV.pdf" 
           download="Aditya_Chouksey_CV.pdf"
           style={{
             border: "1px solid #E21B22", // Your signature racing red

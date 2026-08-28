@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TiltCard from "@/components/cards/ProjectCard";
 
 const techStack = [
@@ -24,14 +24,30 @@ const learning = [
   "F1 Data APIs"
 ];
 
-const ghData = Array.from({ length: 52 * 4 }, () => ({
-  active: Math.random() > 0.65,
-  intensity: Math.floor(Math.random() * 4),
+const GH_CELL_COUNT = 52 * 4;
+
+type GhCell = { active: boolean; intensity: number };
+
+const EMPTY_GH: GhCell[] = Array.from({ length: GH_CELL_COUNT }, () => ({
+  active: false,
+  intensity: 0,
 }));
+
+function randomGhData(): GhCell[] {
+  return Array.from({ length: GH_CELL_COUNT }, () => ({
+    active: Math.random() > 0.65,
+    intensity: Math.floor(Math.random() * 4),
+  }));
+}
 
 export default function BentoGrid() {
   const RED = "#E21B22";
   const BORDER = "#2a2a2a";
+
+  // Generated on the client only. Randomising at module scope made the
+  // server-rendered HTML disagree with the client and threw a hydration error.
+  const [ghData, setGhData] = useState<GhCell[]>(EMPTY_GH);
+  useEffect(() => setGhData(randomGhData()), []);
 
   return (
     <section id="about" style={{
